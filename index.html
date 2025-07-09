@@ -3,599 +3,212 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>百万APP盒子站</title>
+<title>百万盒子站</title>
 <style>
-  body {
-    margin: 0;
-    background-color: yellow;
-    font-family: Arial, sans-serif;
-  }
+body {
+  margin: 0;
+  background-color: yellow;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
 
-  /* 顶部跑马灯标题 */
-  marquee {
-    display: block;
-    width: 100%;
-    font-size: 24px;
-    font-weight: bold;
-    color: red;
-    background-color: #fff;
-    padding: 10px 0;
-  }
+/* 轮播图样式 */
+.carousel {
+  width: 100%;
+  max-width: 800px;
+  height: 228px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+}
+.slide-wrapper {
+  display: flex;
+ transition: transform 0.5s ease;
+}
+.slide {
+  min-width: 100%;
+}
+.slide img {
+  width: 100%;
+  height: 228px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 
-  /* 轮播区域 */
-  .carousel {
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto;
-    overflow: hidden;
-  }
+/* 左右按钮 */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
 
-  .carousel-track {
-    display: flex;
-    width: calc(417px * 4);
-    animation: slide 20s linear infinite;
-  }
+/* 按钮样式 */
+.buttons {
+  margin: 20px 0;
+}
+button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+}
+button:hover {
+  background-color: #45a049;
+}
 
-  .carousel-track img {
-    width: 417px;
-    height: 228px;
-    object-fit: cover;
-    flex-shrink: 0;
-    border-radius: 8px;
-  }
+/* 内容页，隐藏和显示 */
+.page {
+  display: none;
+  padding: 10px 0;
+}
+.page.active {
+  display: block;
+}
 
-  @keyframes slide {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(0); }
-    25% { transform: translateX(-417px); }
-    45% { transform: translateX(-417px); }
-    50% { transform: translateX(-834px); }
-    70% { transform: translateX(-834px); }
-    75% { transform: translateX(-1251px); }
-    95% { transform: translateX(-1251px); }
-    100% { transform: translateX(0); }
-  }
+/* 4列布局 */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 23%);
+  gap: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  /* 图片格子容器 */
+/* 图片样式统一 */
+.grid-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+span {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+/* 适配手机屏幕 */
+@media(max-width: 900px){
   .grid-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+    grid-template-columns: repeat(4, 23%);
   }
+}
 
-  /* 每一排 */
-  .row {
-    display: flex;
-    flex-wrap: nowrap; /* 让每排只有一行，避免换行 */
-    justify-content: space-between; /* 均匀分布 */
-    width: 100%;
-    max-width: 1200px;
-    margin-bottom: 20px;
-  }
-
-  /* 单个图片块宽20%，保证5个一排 */
-  .item {
-    width: 19%; /* 这里用19%确保五个还能在一排 */
-    box-sizing: border-box;
-    text-align: center;
-  }
-
-  /* 容器内的链接 */
-  .item a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  /* 图片 */
-  .item img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  /* 文字 */
-  .item span {
-    display: block;
-    margin-top: 8px;
-    font-size: 14px;
-    color: #333;
-  }
-
-  /* 小屏幕适配优化 */
-  @media(max-width: 800px){
-    .item {
-      width: 19%; /* 保持5个 */
-    }
-  }
+/* 脚注 */
+.footer {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #333;
+}
 </style>
 </head>
 <body>
 
-<!-- 顶部跑马灯 -->
-<marquee behavior="scroll" direction="left" scrollamount="10">
-  百万APP广告合作/商务合作请加联系：@baiwandaohang888
-</marquee>
-
 <!-- 轮播图 -->
 <div class="carousel">
-  <div class="carousel-track">
-    <a href="https://example.com/link1" target="_blank"><img src="https://ptt.co/images/node/26/266852.avif" alt="轮播1"></a>
-    <a href="https://example.com/link2" target="_blank"><img src="https://ptt.co/images/node/43/438726.avif?1751087466" alt="轮播2"></a>
-    <a href="https://example.com/link3" target="_blank"><img src="https://ptt.co/images/node/26/266852.avif" alt="轮播3"></a>
-    <a href="https://example.com/link4" target="_blank"><img src="https://ptt.co/images/node/43/438726.avif?1751087466" alt="轮播4"></a>
+  <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+  <div class="slide-wrapper" id="slideWrapper">
+    <div class="slide"><a href="https://xpj079cc08868comxpjggtz.589778.top:8899/ylgg081.htmltitle="><img src="https://www.yihaoweb.vip/4dcb6ea2-7907-4d62-a0e8-9dcad33f4cf9" alt="轮播1"></a></div>
+    <div class="slide"><a href="https://146.103.87.104:5030/?dl=drs72v"><img src="https://raw.githubusercontent.com/xingxing890/ai/refs/heads/main/ai/images/1928349127170609154.avif" alt="轮播2"></a></div>
+    <div class="slide"><a href="https://manus-487-gtbs-winner-ll.天津师范大学.com:52435/7894j"><img src="https://raw.githubusercontent.com/xingxing890/ai/refs/heads/main/ai/images/animation.gif" alt="轮播3"></a></div>
+    <div class="slide"><a href="https://77665vv.cc:57777/"><img src="https://raw.githubusercontent.com/xingxing890/ai/refs/heads/main/ai/images/842c5f6f-b43a-4854-ab3f-a60ef1638263.png" alt="轮播4"></a></div>
+  </div>
+  <button class="next" onclick="changeSlide(1)">&#10095;</button>
+</div>
+
+<!-- 按钮切换 -->
+<div class="buttons">
+  <button onclick="showPage('single')">热门应用</button>
+  <button onclick="showPage('online')">看片APP</button>
+  <button onclick="showPage('compet')">直播APP</button>
+</div>
+
+<!-- 分类内容：每行4个图片 -->
+<div id="single" class="page active">
+  <div class="grid-container">
+    <div class="grid-item"><a href="https://555838jj.cc:61016/"><img src="https://e3f49eaa46b57.cdn.sohucs.com/2025/7/3/14/50/MTAwMTIyXzE3NTE1MjU0NDgyNDA=.gif" alt="澳门新葡京" /><span>澳门新葡京</span></a></div>
+    <div class="grid-item"><a href="https://195-9-39-ozncx.cc/?cid=596553"><img src="https://e3f49eaa46b57.cdn.sohucs.com/2025/6/30/10/11/MTAwMTIyXzE3NTEyNDk0ODg1NDQ=.gif" alt="澳门新葡京" /><span>澳门新葡京</span></a></div>
+    <div class="grid-item"><a href="https://77665vv.cc:57777/"><img src="https://e3f49eaa46b57.cdn.sohucs.com/2025/7/3/14/51/MTAwMTIyXzE3NTE1MjU0ODk3NDU=.gif" alt="威尼斯" /><span>威尼斯</span></a></div>
+    <div class="grid-item"><a href="https://802-5-xz-waferj.cc/?cid=435166"><img src="https://e3f49eaa46b57.cdn.sohucs.com/2025/7/4/17/7/MTAwMTIyXzE3NTE2MjAwMjYzOTU=.gif" alt="澳门威尼斯" /><span>澳门威尼斯</span></a></div>
   </div>
 </div>
 
-<!-- 5排图片，每排5个 -->
-<div class="grid-container">
-  <!-- 第一排 -->
-  <div class="row">
-    <!-- 五个图片块 -->
-    <div class="item">
-      <a href="https://350.62677745.cc/?cid=580062" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/729.avif?1751041084" alt="图片A" />
-        <span>威尼斯人</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://ok.408185.cc:4040/88.html?shareName=408185.cc" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/737.avif?1751041084" alt="图片B" />
-        <span>开元棋牌</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://ok.6078650.cc:6077/88.html?cid=831954" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/736.avif?1751041084" alt="图片C" />
-        <span>PG娱乐城</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://dsd.u14we.com/saa/?channel=sxVVSc" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/764.avif?1751455390" alt="图片D" />
-        <span>十七岁少女</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkE" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/728.avif?1751041084" alt="图片E" />
-<span>文字E</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第二排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://d16fjmqkfpf3p9.cloudfront.net/?dc=CZZ75" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/762.avif?1751375288" alt="图片F" />
-        <span>腾讯漫画</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://di5euh9afg00f.cloudfront.net/?dc=CZZ75" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/697.avif?1751375374" alt="图片G" />
-        <span>免费看片</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://d2w16paq7f5ds2.cloudfront.net/?dc=CZZ75" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/763.avif?1751375260" alt="图片H" />
-        <span>暗网平台</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://146.103.87.104:5001/?dl=9d629y" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/757.avif?1751041084" alt="图片I" />
-        <span>PG新玩法</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://d16zt662ea6hu.cloudfront.net/?dc=CZZ75" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/698.avif?1751375341" alt="图片J" />
-        <span>百万漫画</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第三排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://www.32r.com/app/51435.html" target="_blank">
-        <img src="https://img.32r.com/logo/221011/20221011143935140.png" alt="图片K" />
-        <span>万国觉醒</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/53480.html" target="_blank">
-        <img src="https://img.32r.com/logo/20241111/6ed481b222df0604b54bcb3237263ea0.png" alt="图片L" />
-        <span>绝地求生</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/95671.html" target="_blank">
-        <img src="https://img.32r.com/logo/20250418/addbb9f97a0bbbd3580a41dcae09c3ce.png" alt="图片M" />
-        <span>三国杀</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/108331.html" target="_blank">
-        <img src="https://img.32r.com/logo/221111/202211111358548359.png" alt="图片N" />
-        <span>诸神之战</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/6984.html" target="_blank">
-        <img src="https://img.32r.com/logo/20240424/f044e477349200c6b228116d247a3ad7.png" alt="图片O" />
-        <span>浮生梦山海</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第四排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://www.32r.com/app/54114.html" target="_blank">
-        <img src="https://img.32r.com/logo/20250610/e4268321655a35ecd7e367403ff04260.gif" alt="图片P" />
-        <span>双生幻想</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/126338.html" target="_blank">
-        <img src="https://img.32r.com/logo/220815/202208151727482665.png" alt="图片Q" />
-        <span>新之彼岸</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkR" target="_blank">
-        <img src="https://img.32r.com/logo/20250626/476f307fd00e90ca2e4f20dbda33ab00.png" alt="图片R" />
-        <span>文字R</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/212.html" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/755.avif?1751041084" alt="图片S" />
-        <span>地铁跑酷</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.32r.com/app/112355.html" target="_blank">
-        <img src="https://img.32r.com/logo/20250602/ca2a2d8a16fa7389a92f4becbaaa085c.png" alt="图片T" />
-        <span>植物大战僵尸</span>
-      </a>
-    </div>
- </div>
- <!-- 第五排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://i.cyewre2505.com/Register/WClSUSIsFN" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/changyun.png" alt="图片U" />
-        <span>长运娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.tqg13666.xyz/#/reg?code=zHhEUEuRnWJx"_blank">
-        <img src="http://103.233.248.68/static/upload/image/tianqi.png" alt="图片V" />
-        <span>天启娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://888.jypi88.com/user/login-form/register/7faa5dd7275d0caab7ce4eba5be07725" target="_blank">
-<img src="http://103.233.248.68/static/upload/image/jiyue.png" alt="图片W" />
-        <span>天启娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://s.xcyl128.com/Register/P98er48chK" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/xincheng.png" alt="图片X" />
-        <span>新城娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://888.jypi88.com/user/login-form/register/7faa5dd7275d0caab7ce4eba5be07725" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/fulian.jpg" alt="图片Y" />
-        <span>极悦娱乐</span>
-         </a>
-    </div>
-</div>
-	  <!-- 5排图片，每排5个 -->
-<div class="grid-container">
-	      <!-- 第六排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://666.ysyl7890.com/user/login-form/register/95ce9f84e3fd83d107d0fc8938aaa337" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/yaoshi.png" alt="图片F" />
-        <span>耀世娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.ax1301.com//reg/740736" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/anxin13.png" alt="图片G" />
-        <span>安信</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.xingxin3.net/#/register/s1/pbvyre" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/xingxin.png" alt="图片H" />
-        <span>杏鑫</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.p8e6rs.vip/#/registers/s1/yukyykba" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/kaijie.png" alt="图片I" />
-        <span>意昂体育</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.ax15b.com/reg/232073" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/anxin15.svg" alt="图片J" />
-        <span>安信</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第七排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://s.lanshi55.com/Register/oAvqOcNyBS" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/lanshi.png" alt="图片K" />
-        <span>蓝狮在线</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://h.wxwxyl33.com/Register/P47fGa9rLB" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/wanxiang.png" alt="图片L" />
-        <span>万向娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkM" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/708.avif?1751253985" alt="图片M" />
-        <span>文字M</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://pgioae.life:9587/home/register" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/leguan.jpg" alt="图片N" />
-        <span>乐冠国际</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkO" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/708.avif?1751253985" alt="图片O" />
-        <span>文字O</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第八排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://ecf.mtyl33.com/user/login-form/register/7a54bf4b08d641fd6c7a7ee204b62892" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/mentu.png" alt="图片P" />
-        <span>门徒</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://j.ol9519c.com/Register/B55ZTYNhJZ" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/languan.png" alt="图片Q" />
-        <span>欧陆娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.hengx5vip7.com/#/registers/s1/vvka" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/hengxing5.jpg" alt="图片R" />
-        <span>恒行5</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.d5f4n2.click/#/register/s1/yjkrgp" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/xingsheng.png" alt="图片S" />
-        <span>杏盛</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://888.fbygd18.com/user/login-form/register/ca2ebb87e86ec1bbc747ed65c914cb7a" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/fengbao.png" alt="图片T" />
-        <span>风暴娱乐</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第九排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://www.tm3777.me/#/reg?code=67t2cvHGaxWw" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/tianmei3.png" alt="图片U" />
-        <span>天美</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkV" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片V" />
-        <span>文字V</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.sy99a.com/register?registCode=babc6406" target="_blank">
-<img src="http://103.233.248.68/static/upload/image/shuangying.png" alt="图片W" />
-        <span>双赢</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://v8hs2.com/register?line=9ed9be249fadd8284cfadbee01ac961d" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/v8.png" alt="图片X" />
-        <span>嘻哈游戏</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://p1.dz9988.com/reg/sxlbhe" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/dazhong.png" alt="图片Y" />
-        <span>大众娱乐</span>
-      </a>
-    </div>
-  </div>
-  <!-- 第十排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://www.xbcp1.com/reg/pysgep" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/xinbi.png" alt="图片U" />
-        <span>新币彩票</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.3wij4.xyz/#/register/s1/vuergr" target="_blank">
-        <img src="http://103.233.248.68/static/upload/image/xingyun.png" alt="图片V" />
-        <span>杏运娱乐</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://www.rphn353.com/#/registers/s1/yukrjvja" target="_blank">
-<img src="http://103.233.248.68/static/upload/image/yiang.jpg" alt="图片W" />
-        <span>文字W</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkX" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片X" />
-        <span>文字X</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkY" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片Y" />
-        <span>文字Y</span>
-         </a>
-    </div>
-  </div>
-  <!-- 第十一排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://example.com/linkU" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片U" />
-        <span>文字U</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkV" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片V" />
-        <span>文字V</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkW" target="_blank">
-<img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片W" />
-        <span>文字W</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkX" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片X" />
-        <span>文字X</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkY" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片Y" />
-        <span>文字Y</span>
-		 </a>
-    </div>
-  </div>
-  <!-- 第十二排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://example.com/linkU" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片U" />
-        <span>文字U</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkV" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片V" />
-        <span>文字V</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkW" target="_blank">
-<img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片W" />
-        <span>文字W</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkX" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片X" />
-        <span>文字X</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkY" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片Y" />
-        <span>文字Y</span>
-		 </a>
-    </div>
-  </div>
-  <!-- 第十三排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://example.com/linkU" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片U" />
-        <span>文字U</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkV" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片V" />
-        <span>文字V</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkW" target="_blank">
-<img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片W" />
-        <span>文字W</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkX" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片X" />
-        <span>文字X</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkY" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片Y" />
-        <span>文字Y</span>
-		 </a>
-    </div>
-  </div>
-  <!-- 第十四排 -->
-  <div class="row">
-    <div class="item">
-      <a href="https://example.com/linkU" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片U" />
-        <span>文字U</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkV" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片V" />
-        <span>文字V</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkW" target="_blank">
-<img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片W" />
-        <span>文字W</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkX" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片X" />
-        <span>文字X</span>
-      </a>
-    </div>
-    <div class="item">
-      <a href="https://example.com/linkY" target="_blank">
-        <img src="https://pttptt.cc/images/friend/0/719.avif?1751041084" alt="图片Y" />
-        <span>文字Y</span>
-      </a>
-    </div>
+<!-- 看片分类 -->
+<div id="online" class="page">
+  <div class="grid-container">
+    <div class="grid-item"><a href="https://s0zkmqldy.dnxkgy697404.cc:39006/3_dydp/dydp2/houzi1.htm?kmz1567"><img src="https://picsislkss.1031.academy/i/2025/05/01/eff5b28cd07e6201f7d9529e78350ceda30b4561.gif" alt="换友交妻" /><span>美女洞洞</span></a></div>
+    <div class="grid-item"><a href="https://coknvzkfz1mdn.nmsaluw3541162.mom:57009/1_md/hz3_1.htm?nam4500"><img src="https://picsislkss.1031.academy/i/2025/05/02/971c5f42f5e18157b42b9d8b3efa79f0aef2dba0.gif" alt="咪色直播" /><span>免费看片</span></a></div>
+    <div class="grid-item"><a href="https://xlo.14oww.com/bpy/?channel=XFHlM3"><img src="https://cffimg.com/20250604_201652153_nKb.gif" alt="射色很快" /><span>射色很快</span></a></div>
+    <div class="grid-item"><a href="https://h67kr.top/"><img src="https://imgsa.baidu.com/forum/pic/item/8c1001e93901213f5dbd29cd12e736d12f2e9511.jpg" alt="同城约炮" /><span>同城约炮</span></a></div>
   </div>
 </div>
+
+<!-- 直播分类 -->
+<div id="compet" class="page">
+  <div class="grid-container">
+    <div class="grid-item"><a href="https://999.fyl789.xyz/?proId=1910265869880365057"><img src="https://teditvv.hxzdh50.top/%E7%99%BE%E5%BA%A6%E9%9F%B3%E4%B9%90/template/hxzdh/new/img/ad880px.gif" alt="全国小姐" /><span>全国小姐</span></a></div>
+    <div class="grid-item"><a href="https://27cosmesa.xyz/?u=Ax0OplDLdEqk"><img src="https://teditvv.hxzdh50.top/%E7%99%BE%E5%BA%A6%E9%9F%B3%E4%B9%90/template/hxzdh/new/img/91yule.gif" alt="小姐约炮" /><span>小姐约炮</span></a></div>
+    <div class="grid-item"><a href="https://3zsr2.top/"><img src="https://imgs.bbyqx.com:8866/bbbb168/31.qerr.100x100.gif" alt="哔哔直播" /><span>哔哔直播</span></a></div>
+    <div class="grid-item"><a href="https://qsdoq.ljddu.com/?channelCode=411134"><img src="https://www.nufox.top/images/35/asbgai-150x150.gif" alt="爱色播直播" /><span>爱色播直播</span></a></div>
+
+  </div>
+</div>
+
+<!-- 脚注 -->
+<div class="footer" id="footer-ad">
+   声明：本站所有站点收集于全球互联网，内容与本站无关，仅为非大陆地区的境外华裔人士提供参考，若来访者国家法律不允许，请自行离开！
+Warning: The website collected by this website comes from the global Internet. The website content has nothing to do with this site. The website is maintained in the United States and is protected by US law. If the visitor's laws do not allow it, please leave by yourself!
+Copyright © 2020 百万盒子导航. All Rights Reserved.
+</div>
+</div>
+<div class="faq">
+<a onclick="addFavorite(window.location,document.title)" href="javascript:void(0)"><div class="faq_scj" id="scj"></div></a>
+<a href="https://babacaoxiaoh.github.io/shuang/" target="_blank"><div class="faq_div" id="guestbook">关于我们</div></a>
+<a href="https://babacaoxiaoh.github.io/shuang/" target="_blank"><div class="faq_div" id="guestbook">  商务合作：@wof168</div></a>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+const slideWrapper = document.getElementById('slideWrapper');
+
+function updateSlide() {
+  slideWrapper.style.transform = translateX(-${currentSlide * 100}%);
+}
+
+function changeSlide(direction) {
+  currentSlide += direction;
+  if (currentSlide < 0) currentSlide = totalSlides - 1;
+  if (currentSlide >= totalSlides) currentSlide = 0;
+  updateSlide();
+}
+
+// 自动轮播（可选）
+setInterval(() => {
+  changeSlide(1);
+}, 3000);
+
+// 切换内容页
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+</script>
 
 </body>
 </html>
